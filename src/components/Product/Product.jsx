@@ -12,7 +12,7 @@ const Product = (props) => {
         </p>
         <div className="product_rating">
           {
-            Array(props.rating).fill().map(()=>{
+            Array(props.rating).fill().map((_,i)=>{
               return (<p>⭐</p>)
             })
           }
