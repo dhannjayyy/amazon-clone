@@ -1,7 +1,22 @@
 import React from "react";
+import { useBasketState } from "../Context provider/basketStateProvider";
 import "./product.scss";
 
 const Product = (props) => {
+  const[state,dispatch] = useBasketState()
+  
+  const addProductToBasket = () =>{
+    dispatch({
+      type: "ADD_TO_BASKET",
+      item: {
+        title : props.title,
+        price : props.price,
+        image : props.image,
+        rating : props.rating
+      }
+    })
+  }
+
   return (
     <div className="product">
       <div className="product_info">
@@ -13,13 +28,13 @@ const Product = (props) => {
         <div className="product_rating">
           {
             Array(props.rating).fill().map((_,i)=>{
-              return (<p>⭐</p>)
+              return (<p key={i}>⭐</p>)
             })
           }
         </div>
       </div>
       <img src={props.image} alt="" />
-      <button>Add to basket</button>
+      <button onClick={addProductToBasket}>Add to basket</button>
     </div>
   );
 };

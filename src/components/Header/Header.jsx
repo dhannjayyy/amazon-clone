@@ -3,8 +3,13 @@ import React from "react";
 import SearchIcon from "@mui/icons-material/Search";
 import { ShoppingBasket } from "@mui/icons-material";
 import { Link } from "react-router-dom";
+import { useBasketState } from "../Context provider/basketStateProvider";
+
 
 const Header = () => {
+  const[state,dispatch] = useBasketState()
+
+
   return (
     <div className="header-container">
       <Link to="/">
@@ -36,7 +41,7 @@ const Header = () => {
         <Link to="/checkout">
           <div className="header_optionBasket">
             <ShoppingBasket />
-            <span className="header_optionLineTwo header_basketCount">0</span>
+            <span className="header_optionLineTwo header_basketCount">{state?.basket?.length}</span>
           </div>
         </Link>
       </div>

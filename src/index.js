@@ -4,7 +4,8 @@ import "./index.scss";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { BasketState } from "./components/Context provider/basketStateProvider";
-import reducer, { initialState } from "./components/Reducer/reducer";
+import reducer, { initialState } from "./components/Context provider/reducer";
+
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
