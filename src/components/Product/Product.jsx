@@ -9,6 +9,7 @@ const Product = (props) => {
     dispatch({
       type: "ADD_TO_BASKET",
       item: {
+        id : props.id,
         title : props.title,
         price : props.price,
         image : props.image,

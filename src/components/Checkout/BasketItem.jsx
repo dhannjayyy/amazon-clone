@@ -1,12 +1,23 @@
 import React from 'react'
+import { useBasketState } from '../Context provider/basketStateProvider'
 import './Checkout.scss'
 
-const BasketItem = ({image,title,price,rating}) => {
+const BasketItem = ({id,image,title,price,rating}) => {
+  const [state,dispatch] = useBasketState();
+
+  const removeBasketItem = () =>{
+    dispatch({
+      type : "REMOVE_FROM_BASKET",
+      item : {
+        id : id
+      }
+    })
+  }
 
   // console.log(basket)
   return (
     <div className='basketItem'>
-      <img className="basketItem_image" src={image}/>
+      <img className="basketItem_image" src={image} alt=""/>
       <div className="basketItem_info">
         <p className="basketItem_title">
           {title}
@@ -22,7 +33,7 @@ const BasketItem = ({image,title,price,rating}) => {
             })
           }
         </div>
-        <button>Remove from basket</button>
+        <button onClick = {removeBasketItem}>Remove from basket</button>
       </div>
     </div>
   )

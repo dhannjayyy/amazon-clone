@@ -19,7 +19,7 @@ const Checkout = () => {
           <h2 className="checkout_title">Your shopping basket</h2>
           {state.basket.map((item,index)=>{
             return (
-              <BasketItem key={`${index}_${item.title}`} image={item.image} title={item.title} price={item.price} rating={item.rating}/>
+              <BasketItem key={`${index}_${item.id}`} id={item.id} image={item.image} title={item.title} price={item.price} rating={item.rating}/>
             )
           })}
         </div>
