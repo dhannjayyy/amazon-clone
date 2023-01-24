@@ -5,10 +5,8 @@ import { ShoppingBasket } from "@mui/icons-material";
 import { Link } from "react-router-dom";
 import { useBasketState } from "../Context provider/basketStateProvider";
 
-
 const Header = () => {
-  const[state,dispatch] = useBasketState()
-
+  const [state, dispatch] = useBasketState();
 
   return (
     <div className="header-container">
@@ -24,10 +22,12 @@ const Header = () => {
         <SearchIcon className="header_searchIcon" />
       </div>
       <div className="header_nav">
-        <div className="header_option">
-          <span className="header_optionLineOne">Hello Guest</span>
-          <span className="header_optionLineTwo">Sign In</span>
-        </div>
+        <Link to="/login">
+          <div className="header_option">
+            <span className="header_optionLineOne">Hello Guest</span>
+            <span className="header_optionLineTwo">Sign In</span>
+          </div>
+        </Link>
         <div className="header_option">
           <span className="header_optionLineOne">Returns </span>
           <span className="header_optionLineTwo">Orders</span>
@@ -41,7 +41,9 @@ const Header = () => {
         <Link to="/checkout">
           <div className="header_optionBasket">
             <ShoppingBasket />
-            <span className="header_optionLineTwo header_basketCount">{state?.basket?.length}</span>
+            <span className="header_optionLineTwo header_basketCount">
+              {state?.basket?.length}
+            </span>
           </div>
         </Link>
       </div>
