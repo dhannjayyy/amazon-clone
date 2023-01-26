@@ -10,6 +10,7 @@ import { useBasketState } from "../Context provider/basketStateProvider";
 const Header = () => {
   const [state, dispatch] = useBasketState();
   const loginHandler = ()=>{
+    
     signOut(auth).catch((error)=>{
       console.log("Something went wrong ",error.message)
     })
@@ -31,7 +32,7 @@ const Header = () => {
       <div className="header_nav">
         <Link to={!state.user && `/login`}>
           <div className="header_option">
-            <span className="header_optionLineOne">Hello Guest</span>
+            <span className="header_optionLineOne">{state.user ? `${state.user.email}` :`Hello Guest`}</span>
             <span onClick={loginHandler} className="header_optionLineTwo">{state.user? `Logout`:`Login`}</span>
           </div>
         </Link>
