@@ -1,5 +1,8 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
+import { getAuth } from "firebase/auth";
+import { getDatabase } from "firebase/database";
+
 // import { getAnalytics } from "firebase/analytics";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -13,9 +16,13 @@ const firebaseConfig = {
   storageBucket: "clone-amzon-dh.appspot.com",
   messagingSenderId: "400628130011",
   appId: "1:400628130011:web:2619cbf9b316dab3cdacfe",
-  measurementId: "G-SWPWHYSZ24"
+  measurementId: "G-SWPWHYSZ24",
 };
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
+const auth = getAuth(app);
+
+export { db, auth };
 // const analytics = getAnalytics(app);

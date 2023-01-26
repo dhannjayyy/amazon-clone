@@ -3,10 +3,17 @@ import React from "react";
 import SearchIcon from "@mui/icons-material/Search";
 import { ShoppingBasket } from "@mui/icons-material";
 import { Link } from "react-router-dom";
+import { auth } from "../../firebase";
+import { signOut } from "firebase/auth";
 import { useBasketState } from "../Context provider/basketStateProvider";
 
 const Header = () => {
   const [state, dispatch] = useBasketState();
+  const loginHandler = ()=>{
+    signOut(auth).catch((error)=>{
+      console.log("Something went wrong ",error.message)
+    })
+  }
 
   return (
     <div className="header-container">
@@ -22,10 +29,10 @@ const Header = () => {
         <SearchIcon className="header_searchIcon" />
       </div>
       <div className="header_nav">
-        <Link to="/login">
+        <Link to={!state.user && `/login`}>
           <div className="header_option">
             <span className="header_optionLineOne">Hello Guest</span>
-            <span className="header_optionLineTwo">Sign In</span>
+            <span onClick={loginHandler} className="header_optionLineTwo">{state.user? `Logout`:`Login`}</span>
           </div>
         </Link>
         <div className="header_option">

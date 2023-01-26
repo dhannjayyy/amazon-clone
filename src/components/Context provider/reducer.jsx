@@ -1,5 +1,6 @@
 export const initialState = {
   basket: [],
+  user : null
 };
 
 const reducer = (state, action) => {
@@ -15,8 +16,13 @@ const reducer = (state, action) => {
       });
       if (index >= 0) state.basket.splice(index, 1);
       return {
-        ...state,
+        ...state
       };
+    case "SET_USER":
+      return {
+        ...state,
+        user:action.user
+      }
     default:
       return state;
   }
