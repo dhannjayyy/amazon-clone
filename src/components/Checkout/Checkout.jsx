@@ -16,6 +16,7 @@ const Checkout = () => {
           className="checkout_ad"
         ></img>
         <div>
+          {state.user && <h3 className="checkout_greeting">{`Hello ${state.user.email}`}</h3>}
           <h2 className="checkout_title">Your shopping basket</h2>
           {state.basket.map((item,index)=>{
             return (

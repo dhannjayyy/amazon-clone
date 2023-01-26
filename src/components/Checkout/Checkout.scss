@@ -5,9 +5,11 @@
     padding:20px;
 
     .checkout_left{
-        .checkout_title{
+        .checkout_greeting, .checkout_title{            
             margin-right:10px;
             padding:10px;
+        }
+        .checkout_title{
             border-bottom: 1px solid lightgray;
         }
         .checkout_ad{
