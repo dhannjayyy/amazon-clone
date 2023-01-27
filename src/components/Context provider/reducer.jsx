@@ -12,13 +12,18 @@ const reducer = (state, action) => {
       };
     case "REMOVE_FROM_BASKET":
       const index = state.basket.findIndex((element) => {
-        return element.id === action.item.id;
+        return (
+          element.id === action.item.id
+        );
       });
-      state.basket[index].product.id = "slideAnimation";
+
+      // var index = action.item.index-1;
+      
       if (index >= 0) state.basket.splice(index, 1);
-      return{
+      // console.log(state.basket)
+      return {
         ...state,
-      }
+      };
     case "SET_USER":
       return {
         ...state,

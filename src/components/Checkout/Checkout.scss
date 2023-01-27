@@ -60,7 +60,7 @@
   width:90%;
   margin-bottom: 20px;
   box-shadow: 0 0 2px 2px gray;
-  transition: opacity 0.5s, transform 0.5s;
+  transition: opacity 0.1s, transform 0.1s;
 
   &:hover{
     transform: scale(1.01);
@@ -109,7 +109,7 @@
 
 // ANIMATIONS
 #slideAnimation{
-  // transform: translateX(100vw);
-  opacity:0.5;
+  transform: translateX(100vw);
+  opacity:0;
 }
 // ANIMATIONS END
