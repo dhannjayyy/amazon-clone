@@ -1,6 +1,6 @@
 export const initialState = {
   basket: [],
-  user : null
+  user: null,
 };
 
 const reducer = (state, action) => {
@@ -14,15 +14,16 @@ const reducer = (state, action) => {
       const index = state.basket.findIndex((element) => {
         return element.id === action.item.id;
       });
+      state.basket[index].product.id = "slideAnimation";
       if (index >= 0) state.basket.splice(index, 1);
-      return {
-        ...state
-      };
+      return{
+        ...state,
+      }
     case "SET_USER":
       return {
         ...state,
-        user:action.user
-      }
+        user: action.user,
+      };
     default:
       return state;
   }

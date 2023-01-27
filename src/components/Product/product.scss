@@ -10,7 +10,13 @@
   min-width: 100px;
   background-color: white;
   z-index: 1;
-
+  transition: all 0.1s;
+  
+  &:hover{
+    transform: scale(1.05);
+    box-shadow: 0 0 10px 2px gray;
+  }
+  
   & > img {
     height:200px;
     max-height: 200px;
@@ -18,7 +24,7 @@
     object-fit: contain;
     margin-bottom: 15px;
   }
-
+  
   & > button {
     background-color: #f0c14b;
     border: 1px solid;
@@ -27,6 +33,12 @@
     color: #111;
     padding: 2px;
     cursor: pointer;
+    transition: all 0.1s;
+
+    &:hover{
+      transform: scale(1.15);
+      box-shadow: 0 0 0.5px 0.5px gray;
+    }
   }
 
   .product_rating {

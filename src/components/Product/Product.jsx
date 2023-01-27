@@ -1,9 +1,10 @@
-import React from "react";
+import React,{ useRef } from "react";
 import { useBasketState } from "../Context provider/basketStateProvider";
 import "./product.scss";
 
 const Product = (props) => {
   const[state,dispatch] = useBasketState()
+  const product = useRef()
   
   const addProductToBasket = () =>{
     dispatch({
@@ -13,13 +14,14 @@ const Product = (props) => {
         title : props.title,
         price : props.price,
         image : props.image,
-        rating : props.rating
+        rating : props.rating,
+        product : product.current
       }
     })
   }
 
   return (
-    <div className="product">
+    <div ref={product} className="product">
       <div className="product_info">
         <p>{props.title}</p>
         <p className="product_price">
