@@ -1,17 +1,20 @@
 import React, { useRef } from "react";
+import { useHref } from "react-router-dom";
 import { useBasketState } from "../Context provider/basketStateProvider";
 import "./Checkout.scss";
 
 const BasketItem = ({ id, image, title, price, rating }) => {
   const [state, dispatch] = useBasketState();
   const product = useRef();
+  const href = useHref();
 
   var siblings = [];
+
   const slideUpAnimation = (element) => {
     if (element == null) {
-      siblings.forEach((product)=>{
-        product.classList.add("slideUpAnimation")
-      })
+      siblings.forEach((product) => {
+        product.classList.add("slideUpAnimation");
+      });
       return;
     }
     siblings.push(element);
@@ -19,6 +22,7 @@ const BasketItem = ({ id, image, title, price, rating }) => {
   };
 
   const removeBasketItem = () => {
+    console.log("rendered")
     product.current.id = "slideAnimation";
     slideUpAnimation(product.current.nextElementSibling);
     setTimeout(() => {
@@ -28,7 +32,7 @@ const BasketItem = ({ id, image, title, price, rating }) => {
           id: id,
         },
       });
-    }, 600);
+    }, 500);
   };
 
   return (
@@ -47,7 +51,10 @@ const BasketItem = ({ id, image, title, price, rating }) => {
               return <p key={i}>⭐</p>;
             })}
         </div>
-        <button onClick={removeBasketItem}>Remove from basket</button>
+        {/* { */}
+        {/* // href === "/checkout" &&  */}
+          <button onClick={removeBasketItem}>Remove from basket</button>
+        {/* } */}
       </div>
     </div>
   );
