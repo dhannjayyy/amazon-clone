@@ -18,11 +18,15 @@ const reducer = (state, action) => {
       });
 
       // var index = action.item.index-1;
-      
-      if (index >= 0) state.basket.splice(index, 1);
+      if (index >= 0) {
+        // console.log(state.basket)
+        state.basket.splice(index, 1);
+        // console.log(state.basket)
       // console.log(state.basket)
+      }
       return {
         ...state,
+        basket : [...state.basket]
       };
     case "SET_USER":
       return {
