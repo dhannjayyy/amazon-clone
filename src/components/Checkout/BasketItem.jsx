@@ -6,31 +6,29 @@ const BasketItem = ({ id, image, title, price, rating }) => {
   const [state, dispatch] = useBasketState();
   const product = useRef();
 
-  const findIndexToUpdateInState = () => {
-    var index = 0;
-    var collection = product.current.parentElement.children;
-    for (var children in collection) {
-      if (collection[children].tagName === "DIV") {
-        index += 1;
-        if(collection[children].id === "slideAnimation") return index
-      }
+  var siblings = [];
+  const slideUpAnimation = (element) => {
+    if (element == null) {
+      siblings.forEach((product)=>{
+        product.classList.add("slideUpAnimation")
+      })
+      return;
     }
+    siblings.push(element);
+    slideUpAnimation(element.nextElementSibling);
   };
 
   const removeBasketItem = () => {
     product.current.id = "slideAnimation";
-    var indexToUpdateInState = findIndexToUpdateInState()
-    // console.log(indexToUpdateInState)
-    setTimeout(()=>{
+    slideUpAnimation(product.current.nextElementSibling);
+    setTimeout(() => {
       dispatch({
         type: "REMOVE_FROM_BASKET",
         item: {
           id: id,
-          index : indexToUpdateInState,
         },
       });
-      // product.current.id = "";
-    },500)
+    }, 600);
   };
 
   return (

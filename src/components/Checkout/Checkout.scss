@@ -1,6 +1,6 @@
 .checkout {
   display: flex;
-  height: max-content;
+  height: 100%;
   background-color: white;
   padding: 20px;
 
@@ -56,15 +56,11 @@
 .basketItem {
   display: flex;
   margin-top: 20px;
-  padding:10px;
-  width:90%;
+  padding: 10px;
+  width: 90%;
   margin-bottom: 20px;
   box-shadow: 0 0 2px 2px gray;
   transition: opacity 0.5s, transform 0.5s;
-
-  &:hover{
-    transform: scale(1.01);
-  }
 
   .basketItem_info {
     padding-left: 20px;
@@ -82,7 +78,7 @@
       cursor: pointer;
       color: #111;
       transition: all 0.1s;
-      
+
       &:hover {
         transform: scale(1.15);
         box-shadow: 0 0 0.5px 0.5px gray;
@@ -108,8 +104,11 @@
 }
 
 // ANIMATIONS
-#slideAnimation{
+#slideAnimation {
   transform: translateX(100vw);
-  opacity:0;
+  opacity: 0;
+}
+.slideUpAnimation {
+  transform: translateY(-110%);
 }
 // ANIMATIONS END
