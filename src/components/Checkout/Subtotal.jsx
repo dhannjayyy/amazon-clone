@@ -3,20 +3,12 @@ import "./Checkout.scss";
 import CurrencyFormat from "react-currency-format";
 import { useBasketState } from "../Context provider/basketStateProvider";
 import { useNavigate } from "react-router-dom";
+import { getBasketValue } from "../Context provider/reducer";
 
 const Subtotal = () => {
-  const [state, dispatch] = useBasketState();
+  const [{basket}, dispatch] = useBasketState();
   const navigate = useNavigate();
 
-  const calculateValue = () => {
-    if (state.basket) {
-      var value = state?.basket.reduce((total, current) => {
-        total += current.price;
-        return total;
-      }, 0);
-    }
-    return value;
-  };
 
   return (
     <div className="subtotal">
@@ -24,8 +16,8 @@ const Subtotal = () => {
         renderText={(value) => (
           <>
             <p>
-              Subtotal ({state.basket?.length} items) :{" "}
-              <strong>{calculateValue()}</strong>
+              Subtotal ({basket?.length} items) :
+              <strong>{value}</strong>
             </p>
             <small className="subtotal_gift">
               <input type="checkbox" /> This order contains a gift.
@@ -33,7 +25,7 @@ const Subtotal = () => {
           </>
         )}
         decimalScale={2}
-        value={0}
+        value={getBasketValue(basket)}
         displayType={"text"}
         thousandSeparator={true}
         prefix={"$"}
