@@ -41,7 +41,7 @@ const BasketItem = ({ id, image, title, price, rating }) => {
       <div className="basketItem_info">
         <p className="basketItem_title">{title}</p>
         <p className="basketItem_price">
-          <small>$</small>
+          <small>INR </small>
           <strong>{price}</strong>
         </p>
         <div className="basketItem_rating">

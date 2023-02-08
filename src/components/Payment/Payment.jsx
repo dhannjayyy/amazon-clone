@@ -1,59 +1,60 @@
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import CurrencyFormat from "react-currency-format";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import BasketItem from "../Checkout/BasketItem";
 import { useBasketState } from "../Context provider/basketStateProvider";
 import { getBasketValue } from "../Context provider/reducer";
 import "./Payment.scss";
+import  axios from "./axios";
 
 const Payment = () => {
   const [{ basket, user }, dispatch] = useBasketState();
-
+  const history = useNavigate();
   const [error, setError] = useState(null);
   const [disabled, setDisabled] = useState(true);
   const [succeeded, setSucceeded] = useState(false);
   const [processing, setProcessing] = useState("");
   const [clientSecret, setClientSecret] = useState(true);
+  const stripe = useStripe();
+  const Elements = useElements();
 
   useEffect(() => {
     //generate the special stripe secret which allows us to charge a customer
 
-    const getClientSecret = async () =>{
+    const getClientSecret = async () => {
       const response = await axios({
-        method: 'post',
+        method: "post",
         //STRIPE expects the total in a currencies subunits
-        url:`payments/create?total=${getBasketValue(basket)*100}`
-      })
-      getClientSecret(response.data.clientSecret);
-    }
+        url: `payments/create?total=${getBasketValue(basket) * 100}`,
+      });
+      setClientSecret(response.data.clientSecret)
+    };
 
+    getClientSecret();
+  }, [basket]);
 
-  }, [basket])
-  
-
-  const stripe = useStripe();
-  const Elements = useElements();
+  console.log('The secret is >>> ', clientSecret)
 
   const handleSubmit = async (e) => {
-    //something
     e.preventDefault();
     setProcessing(true);
 
-    const payload = await stripe.confirmCardPayment(clientSecret,{
-      payment_method:{
-        card: Elements.getElement(CardElement)
-      }
-    }).then(({paymentIntent})=>{
-      //paymentItent = payment confirmation
+    const payload = await stripe
+      .confirmCardPayment(clientSecret, {
+        payment_method: {
+          card: Elements.getElement(CardElement)
+        },
+      })
+      .then(({ paymentIntent }) => {
+        //paymentItent = payment confirmation
 
-      setSucceeded(true);
-      setError(null);
-      setProcessing(false);
+        setSucceeded(true);
+        setError(null);
+        setProcessing(false);
 
-      history.replace('/orders')
-      
-    })
+        history("/orders",'replace')
+      });
   };
 
   const handleChange = (e) => {
@@ -112,14 +113,14 @@ const Payment = () => {
                   value={getBasketValue(basket)}
                   displayType={"text"}
                   thousandSeparator={true}
-                  prefix={"$"}
+                  prefix={"INR"}
                 />
                 <button disabled={processing || disabled || succeeded}>
                   <span>{processing ? <p>Processing</p> : "Buy Now"}</span>
                 </button>
 
                 {/* FOR ERROR */}
-                {error && <div>{error}</div> }
+                {error && <div>{error}</div>}
               </div>
             </form>
           </div>

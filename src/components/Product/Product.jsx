@@ -25,7 +25,7 @@ const Product = (props) => {
       <div className="product_info">
         <p>{props.title}</p>
         <p className="product_price">
-          <small>$ </small>
+          <small>INR </small>
           <strong>{props.price}</strong>
         </p>
         <div className="product_rating">

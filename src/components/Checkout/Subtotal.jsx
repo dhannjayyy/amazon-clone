@@ -28,7 +28,7 @@ const Subtotal = () => {
         value={getBasketValue(basket)}
         displayType={"text"}
         thousandSeparator={true}
-        prefix={"$"}
+        prefix={"INR "}
       />
       <button onClick={(e) => navigate("/payment")}>
         Proceed to Checkout
