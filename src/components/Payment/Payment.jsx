@@ -7,6 +7,7 @@ import { useBasketState } from "../Context provider/basketStateProvider";
 import { getBasketValue } from "../Context provider/reducer";
 import "./Payment.scss";
 import  axios from "./axios";
+import { db } from "../../firebase";
 
 const Payment = () => {
   const [{ basket, user }, dispatch] = useBasketState();
@@ -34,7 +35,6 @@ const Payment = () => {
     getClientSecret();
   }, [basket]);
 
-  console.log('The secret is >>> ', clientSecret)
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -49,9 +49,15 @@ const Payment = () => {
       .then(({ paymentIntent }) => {
         //paymentItent = payment confirmation
 
+        db.collection('users').doc
+
         setSucceeded(true);
         setError(null);
         setProcessing(false);
+
+        dispatch({
+          type:"EMPTY_BASKET"
+        })
 
         history("/orders",'replace')
       });

@@ -8,6 +8,7 @@ import { onAuthStateChanged } from "firebase/auth";
 import { useEffect } from "react";
 import { auth } from "./firebase";
 import { useBasketState } from "./components/Context provider/basketStateProvider";
+import OrdersPage from "./Pages/OrdersPage";
 
 
 function App() {
@@ -35,8 +36,10 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="checkout" element={<CheckoutPage />} />
+        <Route path="orders" element={<OrdersPage />} />
         <Route path="login" element={<LoginPage />}/>
         <Route path="payment" element={<PaymentPage />}/>
+        <Route path="*" element={<div>404</div>} />
       </Routes>
     </BrowserRouter>
   );
