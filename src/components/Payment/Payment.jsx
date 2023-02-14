@@ -49,7 +49,8 @@ const Payment = () => {
       .then(({ paymentIntent }) => {
         //paymentItent = payment confirmation
 
-        db.collection('users').doc
+        // db.collection('users').doc
+        console.log(paymentIntent)
 
         setSucceeded(true);
         setError(null);

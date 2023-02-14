@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { auth } from "../../firebase";
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
@@ -7,6 +7,7 @@ import "./Login.scss";
 const Login = () => {
 
   const navigate = useNavigate();
+  const errorSpan = useRef();
 
   const [formInputs, setFormInputs] = useState({
     email: "",
@@ -28,18 +29,25 @@ const Login = () => {
       }
     }).catch((error)=>{
       console.log("Some error has occured ",error.message)
+      console.log(errorSpan.current.innerHtml)
+      errorSpan.current.innerHTML = error.message;
+      console.log(errorSpan.current.innerHtml)
     })
   };
   const signUp = (e) => {
     e.preventDefault();
-      createUserWithEmailAndPassword(auth,formInputs.email, formInputs.password)
-      .then((authObject) => {
+    createUserWithEmailAndPassword(auth,formInputs.email, formInputs.password)
+    .then((authObject) => {
         if(authObject){
           navigate('/');
         }        
       })
       .catch((error) => {
         console.log("Some error has occured", error.message);
+        console.log(errorSpan.current.innerHtml)
+        errorSpan.current.innerHTML = error.message;
+        console.log(errorSpan.current.innerHtml)
+        console.log(errorSpan)
       });
   };
 
@@ -81,6 +89,7 @@ const Login = () => {
         <button onClick={signUp} className="login_registerbutton">
           Create your amazon account
         </button>
+        <span ref={errorSpan} className="login__error"></span>
       </div>
     </div>
   );
