@@ -1,5 +1,7 @@
 .payment {
   background-color: white;
+  max-width:95%;
+  margin: auto;
 
   .payment_container {
     & > h1 {
@@ -22,8 +24,28 @@
       .payment_title {
         flex: 0.2;
       }
-      .payment_address, .payment_items, .payment_details {
+      .payment_address,
+      .payment_items,
+      .payment_details {
         flex: 0.8;
+      }
+      .payment_buybutton {
+        cursor: pointer;
+        background: #f0c14b;
+        border-radius: 2px;
+        width: 100%;
+        height: 30px;
+        border: 1px solid;
+        font-weight: bolder;
+        margin-top: 10px;
+        border-color: #a88734 #9c7e31 #846a29;
+        color: #111;
+      }
+      .payment_form {
+        max-width: 400px;
+        & h3 {
+          margin: 20px 0;
+        }
       }
     }
   }

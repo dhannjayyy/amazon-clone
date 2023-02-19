@@ -120,7 +120,7 @@ const Payment = () => {
             <h3>Payment Method</h3>
           </div>
           <div className="payment_details">
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} className="payment_form">
               <CardElement onChange={handleChange} />
               <div className="payment_priceContainer">
                 <CurrencyFormat
@@ -131,7 +131,7 @@ const Payment = () => {
                   thousandSeparator={true}
                   prefix={"INR"}
                 />
-                <button disabled={processing || disabled || succeeded}>
+                <button className="payment_buybutton" disabled={processing || disabled || succeeded}>
                   <span>{processing ? <p>Processing</p> : "Buy Now"}</span>
                 </button>
 
