@@ -9,12 +9,11 @@ import { useBasketState } from "../Context provider/basketStateProvider";
 
 const Header = () => {
   const [state, dispatch] = useBasketState();
-  const loginHandler = ()=>{
-    
-    signOut(auth).catch((error)=>{
-      console.log("Something went wrong ",error.message)
-    })
-  }
+  const loginHandler = () => {
+    signOut(auth).catch((error) => {
+      console.log("Something went wrong ", error.message);
+    });
+  };
 
   return (
     <div className="header-container">
@@ -32,20 +31,28 @@ const Header = () => {
       <div className="header_nav">
         <Link to={!state.user && `/login`}>
           <div className="header_option">
-            <span className="header_optionLineOne">{state.user ? `${state.user.email}` :`Hello Guest`}</span>
-            <span onClick={loginHandler} className="header_optionLineTwo">{state.user? `Logout`:`Login`}</span>
+            <span className="header_optionLineOne">
+              {state.user ? `${state.user.email}` : `Hello Guest`}
+            </span>
+            <span onClick={loginHandler} className="header_optionLineTwo">
+              {state.user ? `Logout` : `Login`}
+            </span>
           </div>
         </Link>
-        <div className="header_option">
-          <span className="header_optionLineOne">Returns </span>
-          <span className="header_optionLineTwo">Orders</span>
-        </div>
-        <div className="header_option">
-          <span className="header_optionLineOne">Your</span>
-          <span className="header_optionLineTwo header_optionPrime">
-            Prime{" "}
-          </span>
-        </div>
+        <Link to="/orders">
+          <div className="header_option">
+            <span className="header_optionLineOne">Returns </span>
+            <span className="header_optionLineTwo">Orders</span>
+          </div>
+        </Link>
+        <Link to="">
+          <div className="header_option">
+            <span className="header_optionLineOne">Your</span>
+            <span className="header_optionLineTwo header_optionPrime">
+              Prime{" "}
+            </span>
+          </div>
+        </Link>
         <Link to="/checkout">
           <div className="header_optionBasket">
             <ShoppingBasket />
