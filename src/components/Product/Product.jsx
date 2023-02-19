@@ -15,7 +15,7 @@ const Product = (props) => {
         price : props.price,
         image : props.image,
         rating : props.rating,
-        product : product.current
+        // product : product.current
       }
     })
   }

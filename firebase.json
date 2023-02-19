@@ -36,7 +36,7 @@
       "port": 4000
     },
     "database": {
-      "port": 3001
+      "port": 3002
     },
     "hosting": {
       "port": 5000

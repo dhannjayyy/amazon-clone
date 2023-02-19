@@ -3,10 +3,9 @@ import { useHref } from "react-router-dom";
 import { useBasketState } from "../Context provider/basketStateProvider";
 import "./Checkout.scss";
 
-const BasketItem = ({ id, image, title, price, rating }) => {
+const BasketItem = ({ id, image, title, price, rating, hideButton }) => {
   const [state, dispatch] = useBasketState();
   const product = useRef();
-  const href = useHref();
 
   var siblings = [];
 
@@ -22,7 +21,6 @@ const BasketItem = ({ id, image, title, price, rating }) => {
   };
 
   const removeBasketItem = () => {
-    console.log("rendered")
     product.current.id = "slideAnimation";
     slideUpAnimation(product.current.nextElementSibling);
     setTimeout(() => {
@@ -41,7 +39,7 @@ const BasketItem = ({ id, image, title, price, rating }) => {
       <div className="basketItem_info">
         <p className="basketItem_title">{title}</p>
         <p className="basketItem_price">
-          <small>INR </small>
+          <small>INR</small>
           <strong>{price}</strong>
         </p>
         <div className="basketItem_rating">
@@ -51,10 +49,7 @@ const BasketItem = ({ id, image, title, price, rating }) => {
               return <p key={i}>⭐</p>;
             })}
         </div>
-        {/* { */}
-        {/* // href === "/checkout" &&  */}
-          <button onClick={removeBasketItem}>Remove from basket</button>
-        {/* } */}
+        {!hideButton && <button onClick={removeBasketItem}>Remove from basket</button>}
       </div>
     </div>
   );

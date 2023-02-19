@@ -1,0 +1,22 @@
+.orders {
+  padding: 20px 80px;
+  & > h1 {
+    margin:30px 0;
+  }
+  .orderItem {
+    padding: 40px;
+    margin: 20px 0;
+    border: 1px solid lightgray;
+    background-color: #fff;
+    position: relative;
+    .order__id {
+      position: absolute;
+      top: 40px;
+      right: 20px;
+    }
+    .order__total {
+      font-family: 500;
+      text-align: right;
+    }
+  }
+}
