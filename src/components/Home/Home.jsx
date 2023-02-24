@@ -1,3 +1,4 @@
+/* eslint-disable array-callback-return */
 import React from "react";
 import Product from "../Product/Product";
 import "./home.scss";

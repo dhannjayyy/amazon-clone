@@ -1,4 +1,5 @@
 import React from "react";
+import Footer from "../components/Footer/Footer";
 import Header from "../components/Header/Header";
 import Orders from "../components/Orders/Orders";
 
@@ -7,6 +8,7 @@ const OrdersPage = () => {
     <>
       <Header />
       <Orders />
+      <Footer />
     </>
   );
 };
