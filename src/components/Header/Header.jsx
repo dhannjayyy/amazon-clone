@@ -1,5 +1,6 @@
+/* eslint-disable no-unused-vars */
 import "./header.scss";
-import React from "react";
+import React, { useRef } from "react";
 import SearchIcon from "@mui/icons-material/Search";
 import { ShoppingBasket } from "@mui/icons-material";
 import { Link } from "react-router-dom";
@@ -9,26 +10,30 @@ import { useBasketState } from "../Context provider/basketStateProvider";
 
 const Header = () => {
   const [state, dispatch] = useBasketState();
+  const header_NavbarReference = useRef()
+  
   const loginHandler = () => {
     signOut(auth).catch((error) => {
       console.log("Something went wrong ", error.message);
     });
   };
 
+  const activateMobileNavbar = ()=>{
+    header_NavbarReference.current.classList.toggle("header_nav_active")
+  }
+
   return (
-    <div className="header-container">
-      <Link to="/">
-        <img
-          className="header_logo"
-          src="http://pngimg.com/uploads/amazon/amazon_PNG11.png"
-          alt=""
-        />
-      </Link>
+    <div className="header_container">
+      <div className="header_logo">
+        <Link to="/">
+          <img src="http://pngimg.com/uploads/amazon/amazon_PNG11.png" alt="" />
+        </Link>
+      </div>
       <div className="header_search">
         <input type="text" className="header_searchInput" />
         <SearchIcon className="header_searchIcon" />
       </div>
-      <div className="header_nav">
+      <div className="header_nav" ref={header_NavbarReference}>
         <Link to={!state.user && `/login`}>
           <div className="header_option">
             <span className="header_optionLineOne">
@@ -61,6 +66,11 @@ const Header = () => {
             </span>
           </div>
         </Link>
+      </div>
+      <div className="header_hamburger" onClick={activateMobileNavbar}>
+        <div className="header_hamburgerLine"></div>
+        <div className="header_hamburgerLine"></div>
+        <div className="header_hamburgerLine"></div>
       </div>
     </div>
   );

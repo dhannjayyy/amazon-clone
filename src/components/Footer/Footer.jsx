@@ -57,11 +57,12 @@ const Footer = () => {
         </div>
       </div>
       <span className="footer_divider"></span>
-      <img
-        className="header_logo"
-        src="http://pngimg.com/uploads/amazon/amazon_PNG11.png"
-        alt=""
-      />
+      <div className="footer_logo">
+        <img
+          src="http://pngimg.com/uploads/amazon/amazon_PNG11.png"
+          alt=""
+        />
+      </div>
     </div>
   );
 };

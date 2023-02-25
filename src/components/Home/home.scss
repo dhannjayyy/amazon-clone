@@ -4,7 +4,9 @@
     margin-left: auto;
     margin-right: auto;
     object-fit: contain;
-    margin-bottom:-150px;
+    height: auto;
+    // margin-bottom:-150px;
+    margin-bottom:-20%;
 }
 
 .home{
@@ -17,7 +19,14 @@
     .home_row{
         z-index: 1;
         display: flex;
+        flex-wrap: wrap;
         margin-left:5px;
         margin-right:5px;
+    }
+}
+
+@media (max-width:425px){
+    .banner_image{
+        margin-bottom: -10%;
     }
 }
