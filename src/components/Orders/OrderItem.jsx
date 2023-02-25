@@ -8,10 +8,7 @@ const OrderItem = ({ order }) => {
     <div className="orderItem">
       <h2>Order</h2>
       <p>{moment.unix(order.data.created).format("MMMM Do YYYY, h:mm a")}</p>
-      <p className="order__id">
-        <small>{order.id}</small>
-      </p>
-      {order.data.basket?.map((item, index) => {
+          {order.data.basket?.map((item, index) => {
         return (
           <BasketItem
             key={`${index}_${item.id}`}

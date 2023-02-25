@@ -4,8 +4,7 @@ import { db } from "../../firebase";
 import { useBasketState } from "../Context provider/basketStateProvider";
 import {
   collection,
-  doc,
-  getDocs,
+
   onSnapshot,
   orderBy,
   query,
@@ -32,7 +31,7 @@ const Orders = () => {
           );
         });
       } catch (error) {
-        console.log(error);
+        setError(error)
       }
     }
   }, [user]);
