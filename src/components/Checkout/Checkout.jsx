@@ -6,7 +6,6 @@ import { useBasketState } from "../Context provider/basketStateProvider";
 
 const Checkout = () => {
   const [state, dispatch] = useBasketState();
-
   return (
     <div className="checkout">
       <div className="checkout_left">
@@ -32,6 +31,7 @@ const Checkout = () => {
               />
             );
           })}
+          {state.basket.length === 0 && <div className="checkout_emptyCart"><p>Your cart is empty.</p></div>}
         </div>
       </div>
       <div className="checkout_right">

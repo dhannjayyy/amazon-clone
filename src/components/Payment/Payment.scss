@@ -1,6 +1,7 @@
 .payment {
   background-color: white;
   max-width: 95%;
+  width: 80%;
   margin: auto;
 
   .payment_container {
@@ -40,6 +41,12 @@
         margin-top: 10px;
         border-color: #a88734 #9c7e31 #846a29;
         color: #111;
+        transition: opacity 0.5s ease-in-out;
+
+        &:disabled{
+          cursor:not-allowed;
+          opacity: 0.5;
+        }
       }
       .payment_form {
         max-width: 400px;

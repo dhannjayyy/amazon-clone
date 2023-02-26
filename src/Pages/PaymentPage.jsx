@@ -7,7 +7,7 @@ import Footer from "../components/Footer/Footer";
 
 const stripePromise = loadStripe(
   "pk_test_51MW30cSCubCFnNg70b0x64rfC7GD4H9bGNGJeQuXySxxObDxUHBifTAgauua0OUPqmKOix02H1P3rzVtsSEKqjLJ00Vst0Uzhh"
-);
+); 
 
 const PaymentPage = () => {
   return (

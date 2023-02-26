@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./Checkout.scss";
 import CurrencyFormat from "react-currency-format";
 import { useBasketState } from "../Context provider/basketStateProvider";
@@ -7,7 +7,15 @@ import { getBasketValue } from "../Context provider/reducer";
 
 const Subtotal = () => {
   const [{basket}, dispatch] = useBasketState();
+  const [disable,setDisable] = useState(false)
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if(basket.length === 0){
+      setDisable(true)
+    }
+  }, [basket])
+  
 
 
   return (
@@ -30,7 +38,7 @@ const Subtotal = () => {
         thousandSeparator={true}
         prefix={"INR "}
       />
-      <button onClick={(e) => navigate("/payment")}>
+      <button disabled = {disable} onClick={(e) => navigate("/payment")}>
         Proceed to Checkout
       </button>
     </div>

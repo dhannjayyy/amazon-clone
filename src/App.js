@@ -9,27 +9,26 @@ import { useEffect } from "react";
 import { auth } from "./firebase";
 import { useBasketState } from "./components/Context provider/basketStateProvider";
 import OrdersPage from "./Pages/OrdersPage";
-
+import NotFoundPage from "./Pages/NotFoundPage";
 
 function App() {
-  const [{},dispatch] = useBasketState()
+  const [{ user, basket }, dispatch] = useBasketState();
 
-  useEffect(()=>{
-    onAuthStateChanged(auth,(authObject)=>{
-      if(authObject){
+  useEffect(() => {
+    onAuthStateChanged(auth, (authObject) => {
+      if (authObject) {
         dispatch({
-          type: 'SET_USER',
-          user: authObject
-        })
-      }
-      else{
+          type: "SET_USER",
+          user: authObject,
+        });
+      } else {
         dispatch({
-          type: 'SET_USER',
-          user: null
-        })
+          type: "SET_USER",
+          user: null,
+        });
       }
-    })
-  },[])
+    });
+  }, []);
 
   return (
     <BrowserRouter>
@@ -37,9 +36,11 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="checkout" element={<CheckoutPage />} />
         <Route path="orders" element={<OrdersPage />} />
-        <Route path="login" element={<LoginPage />}/>
-        <Route path="payment" element={<PaymentPage />}/>
-        <Route path="*" element={<div>404</div>} />
+        <Route path="login" element={<LoginPage />} />
+        {basket.length > 0 && (
+          <Route path="payment" element={<PaymentPage />} />
+        )}
+        <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </BrowserRouter>
   );
