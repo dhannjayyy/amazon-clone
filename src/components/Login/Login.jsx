@@ -89,7 +89,7 @@ const Login = () => {
         <button onClick={signUp} className="login_registerbutton">
           Create your amazon account
         </button>
-        <span ref={errorSpan} className="login__error"></span>
+        <span ref={errorSpan} className="login__error "></span>
       </div>
     </div>
   );

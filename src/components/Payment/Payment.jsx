@@ -135,7 +135,6 @@ const Payment = () => {
                 <button className="payment_buybutton" disabled={processing || disabled || succeeded}>
                   <span>{processing ? <p>Processing</p> : "Buy Now"}</span>
                 </button>
-
                 {/* FOR ERROR */}
                 {error && <div>{error}</div>}
               </div>

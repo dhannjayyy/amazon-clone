@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import "./App.css";
 import HomePage from "./Pages/HomePage";
 import CheckoutPage from "./Pages/CheckoutPage";

@@ -1,10 +1,11 @@
+/* eslint-disable no-unused-vars */
 import React, { useRef } from "react";
 import { useHref } from "react-router-dom";
 import { useBasketState } from "../Context provider/basketStateProvider";
 import "./Checkout.scss";
 
 const BasketItem = ({ id, image, title, price, rating, hideButton }) => {
-  const [state, dispatch] = useBasketState();
+  const [, dispatch] = useBasketState();
   const product = useRef();
 
   var siblings = [];

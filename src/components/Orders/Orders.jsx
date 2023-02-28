@@ -4,7 +4,6 @@ import { db } from "../../firebase";
 import { useBasketState } from "../Context provider/basketStateProvider";
 import {
   collection,
-
   onSnapshot,
   orderBy,
   query,

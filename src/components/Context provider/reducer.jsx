@@ -45,8 +45,9 @@ const reducer = (state, action) => {
         ...state,
         basket: [...state.basket],
       };
-
-    case "EMPTY_BASKET":
+      
+      case "EMPTY_BASKET":
+      localStorage.setItem("amazonBasket", JSON.stringify([]));
       return {
         ...state,
         basket: [],

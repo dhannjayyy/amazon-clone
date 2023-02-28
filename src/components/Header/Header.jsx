@@ -3,23 +3,42 @@ import "./header.scss";
 import React, { useRef } from "react";
 import SearchIcon from "@mui/icons-material/Search";
 import { ShoppingBasket } from "@mui/icons-material";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { auth } from "../../firebase";
 import { signOut } from "firebase/auth";
 import { useBasketState } from "../Context provider/basketStateProvider";
+import { db } from "../../firebase";
+import { doc, setDoc } from "firebase/firestore";
+
 
 const Header = () => {
+  const navigate = useNavigate()
   const [state, dispatch] = useBasketState();
-  const header_NavbarReference = useRef();  
-  const loginHandler = () => {
+  const header_NavbarReference = useRef();
+  const logoutHandler = async () => {
+    const docRef = doc(
+      db,
+      "users",
+      state.user?.uid,
+      );
+      try {
+        await setDoc(docRef, {
+          basket: state.basket,
+        });
+        navigate("/login")
+        console.log("innside")
+      } catch (error) {
+      console.log(error.message);
+    }
+    dispatch({type:"EMPTY_BASKET"});
     signOut(auth).catch((error) => {
       console.log("Something went wrong ", error.message);
     });
   };
 
-  const activateMobileNavbar = ()=>{
-    header_NavbarReference.current.classList.toggle("header_nav_active")
-  }
+  const activateMobileNavbar = () => {
+    header_NavbarReference.current.classList.toggle("header_nav_active");
+  };
 
   return (
     <div className="header_container">
@@ -38,7 +57,7 @@ const Header = () => {
             <span className="header_optionLineOne">
               {state.user ? `${state.user.email}` : `Hello Guest`}
             </span>
-            <span onClick={loginHandler} className="header_optionLineTwo">
+            <span onClick={logoutHandler} className="header_optionLineTwo">
               {state.user ? `Logout` : `Login`}
             </span>
           </div>

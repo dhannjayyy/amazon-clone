@@ -5,7 +5,7 @@ import BasketItem from "./BasketItem";
 import { useBasketState } from "../Context provider/basketStateProvider";
 
 const Checkout = () => {
-  const [state, dispatch] = useBasketState();
+  const [state] = useBasketState();
   return (
     <div className="checkout">
       <div className="checkout_left">
