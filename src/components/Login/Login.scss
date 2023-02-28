@@ -6,12 +6,13 @@
     height:100vh;
     background-color: white;
 
+    
     .login_logo{
         margin: 20px auto;
         object-fit: contain;
         width:100px;
     }
-
+    
     .login_form{
         width: 300px;
         height: fit-content;
@@ -20,12 +21,12 @@
         border-radius: 5px;
         border: 1px solid lightgray;
         padding:20px;
-
+        
         & > h1{
             font-weight: 500;
             margin-bottom: 20px;
         }
-
+        
         & > form > h5{
             margin-bottom: 5px;
         }
@@ -36,12 +37,18 @@
             background-color: white;
             width:98%;
         }
-
+        
         & > p{
             margin-top: 15px;
             font-size: 12px;
         }
-
+        .login_loginFirstMessage{
+            color:red;
+            text-align: center;
+            font-weight: 500;
+            margin: 10px 0;
+        }
+        
         .login_singinbutton{
             background-color: #f0c14b;
             border-radius: 2px;

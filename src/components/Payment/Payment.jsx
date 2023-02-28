@@ -36,6 +36,17 @@ const Payment = () => {
     getClientSecret();
   }, [basket]);
 
+  const clearRemoteBsket = async () => {
+    const docRef = doc(db, "users", user?.uid);
+    try {
+      await setDoc(docRef, {
+        basket: [],
+      });
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setProcessing(true);
@@ -52,11 +63,11 @@ const Payment = () => {
         try {
           await setDoc(docRef, {
             basket: basket,
-            amount: paymentIntent.amount/100,
+            amount: paymentIntent.amount / 100,
             created: paymentIntent.created,
           });
         } catch (error) {
-          setError("Something went wrong, please try again")
+          setError("Something went wrong, please try again");
           setProcessing(false);
           setSucceeded(false);
         }
@@ -64,6 +75,8 @@ const Payment = () => {
         setSucceeded(true);
         setError(null);
         setProcessing(false);
+
+        clearRemoteBsket();
 
         dispatch({
           type: "EMPTY_BASKET",
@@ -110,7 +123,7 @@ const Payment = () => {
                   title={item.title}
                   price={item.price}
                   rating={item.rating}
-                  hideButton = {true}
+                  hideButton={true}
                 />
               );
             })}
@@ -132,7 +145,10 @@ const Payment = () => {
                   thousandSeparator={true}
                   prefix={"INR"}
                 />
-                <button className="payment_buybutton" disabled={processing || disabled || succeeded}>
+                <button
+                  className="payment_buybutton"
+                  disabled={processing || disabled || succeeded}
+                >
                   <span>{processing ? <p>Processing</p> : "Buy Now"}</span>
                 </button>
                 {/* FOR ERROR */}
