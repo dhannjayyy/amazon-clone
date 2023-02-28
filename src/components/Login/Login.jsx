@@ -1,11 +1,13 @@
 import React, { useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { auth } from "../../firebase";
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
 import "./Login.scss";
 
 const Login = () => {
-
   const navigate = useNavigate();
   const errorSpan = useRef();
 
@@ -21,34 +23,42 @@ const Login = () => {
     });
   };
 
-  const signIn = (e) => {
+  const signIn = async (e) => {
     e.preventDefault();
-    signInWithEmailAndPassword(auth,formInputs.email, formInputs.password).then((authObject)=>{
-      if(authObject){
-        navigate("/")
+    const authObject = await signInWithEmailAndPassword(
+      auth,
+      formInputs.email,
+      formInputs.password
+    );
+    try {
+      if (authObject) {
+        navigate("/");
       }
-    }).catch((error)=>{
-      console.log("Some error has occured ",error.message)
-      console.log(errorSpan.current.innerHtml)
+    } catch (error) {
+      console.log("Some error has occured ", error.message);
+      console.log(errorSpan.current.innerHtml);
       errorSpan.current.innerHTML = error.message;
-      console.log(errorSpan.current.innerHtml)
-    })
+      console.log(errorSpan.current.innerHtml);
+    }
   };
-  const signUp = (e) => {
+  const signUp = async (e) => {
     e.preventDefault();
-    createUserWithEmailAndPassword(auth,formInputs.email, formInputs.password)
-    .then((authObject) => {
-        if(authObject){
-          navigate('/');
-        }        
-      })
-      .catch((error) => {
-        console.log("Some error has occured", error.message);
-        console.log(errorSpan.current.innerHtml)
-        errorSpan.current.innerHTML = error.message;
-        console.log(errorSpan.current.innerHtml)
-        console.log(errorSpan)
-      });
+    try {
+      const authObject = await createUserWithEmailAndPassword(
+        auth,
+        formInputs.email,
+        formInputs.password
+      );
+      if (authObject) {
+        navigate("/");
+      }
+    } catch (error) {
+      console.log("Some error has occured", error.message);
+      console.log(errorSpan.current.innerHtml);
+      errorSpan.current.innerHTML = error.message;
+      console.log(errorSpan.current.innerHtml);
+      console.log(errorSpan);
+    }
   };
 
   return (
