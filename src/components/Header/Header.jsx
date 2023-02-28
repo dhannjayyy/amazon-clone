@@ -10,27 +10,22 @@ import { useBasketState } from "../Context provider/basketStateProvider";
 import { db } from "../../firebase";
 import { doc, setDoc } from "firebase/firestore";
 
-
 const Header = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [state, dispatch] = useBasketState();
   const header_NavbarReference = useRef();
+
   const logoutHandler = async () => {
-    const docRef = doc(
-      db,
-      "users",
-      state.user?.uid,
-      );
-      try {
-        await setDoc(docRef, {
-          basket: state.basket,
-        });
-        navigate("/login")
-        console.log("innside")
-      } catch (error) {
+    const docRef = doc(db, "users", state.user?.uid);
+    try {
+      await setDoc(docRef, {
+        basket: state.basket,
+      });
+      setTimeout(() => navigate("/login"), 500);
+    } catch (error) {
       console.log(error.message);
     }
-    dispatch({type:"EMPTY_BASKET"});
+    dispatch({ type: "EMPTY_BASKET" });
     signOut(auth).catch((error) => {
       console.log("Something went wrong ", error.message);
     });

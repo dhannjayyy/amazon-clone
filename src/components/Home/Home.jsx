@@ -4,6 +4,7 @@ import Product from "../Product/Product";
 import "./home.scss";
 
 const Home = () => {
+  
   const productsArray = [
     [
       "prod_",

@@ -1,4 +1,5 @@
-import React, { useRef, useState } from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { auth } from "../../firebase";
 import {
@@ -6,10 +7,14 @@ import {
   signInWithEmailAndPassword,
 } from "firebase/auth";
 import "./Login.scss";
+import { doc, onSnapshot } from "firebase/firestore";
+import { useBasketState } from "../Context provider/basketStateProvider";
+import { db } from "../../firebase";
 
 const Login = () => {
   const navigate = useNavigate();
   const errorSpan = useRef();
+  const [, dispatch] = useBasketState();
 
   const [formInputs, setFormInputs] = useState({
     email: "",
@@ -32,6 +37,16 @@ const Login = () => {
     );
     try {
       if (authObject) {
+        const basketRef = doc(db, "users", authObject.user.uid);
+        onSnapshot(basketRef, (querySnapshot) => {
+          const remoteBasket = querySnapshot.data();
+          console.log(remoteBasket.basket);
+          remoteBasket.basket.forEach((basketItem) => {
+            console.log("inside");
+            console.log(basketItem);
+            dispatch({ type: "ADD_TO_BASKET", item: basketItem });
+          });
+        });
         navigate("/");
       }
     } catch (error) {
