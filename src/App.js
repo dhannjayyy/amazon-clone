@@ -4,7 +4,13 @@ import HomePage from "./Pages/HomePage";
 import CheckoutPage from "./Pages/CheckoutPage";
 import PaymentPage from "./Pages/PaymentPage";
 import LoginPage from "./Pages/LoginPage";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  useLocation,
+  useNavigate,
+} from "react-router-dom";
 import { onAuthStateChanged } from "firebase/auth";
 import { useEffect } from "react";
 import { auth } from "./firebase";
@@ -12,7 +18,7 @@ import { useBasketState } from "./components/Context provider/basketStateProvide
 import OrdersPage from "./Pages/OrdersPage";
 import NotFoundPage from "./Pages/NotFoundPage";
 
-function App() {
+const App = () => {
   const [{ user, basket }, dispatch] = useBasketState();
 
   useEffect(() => {
@@ -37,7 +43,11 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="checkout" element={<CheckoutPage />} />
         <Route path="orders" element={<OrdersPage />} />
-        <Route path="login" element={<LoginPage />} />
+        {user ? (
+          <Route path="login" element={<HomePage />} />
+        ) : (
+          <Route path="login" element={<LoginPage />} />
+        )}
         {basket.length > 0 && (
           <Route path="payment" element={<PaymentPage />} />
         )}
@@ -45,6 +55,6 @@ function App() {
       </Routes>
     </BrowserRouter>
   );
-}
+};
 
 export default App;

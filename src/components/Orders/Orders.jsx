@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from "react";
 import "./Orders.scss";
 import { db } from "../../firebase";
@@ -12,7 +13,7 @@ import OrderItem from "./OrderItem";
 
 const Orders = () => {
   const [orders, setOrders] = useState([]);
-  const [{ basket, user }, dispatch] = useBasketState();
+  const [{ basket, user }] = useBasketState();
   const [error, setError] = useState(null);
 
   useEffect(() => {

@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { auth } from "../../firebase";
 import {
@@ -14,8 +14,7 @@ import { db } from "../../firebase";
 const Login = () => {
   const navigate = useNavigate();
   const errorSpan = useRef();
-  const [, dispatch] = useBasketState();
-
+  const [state, dispatch] = useBasketState();
   const [formInputs, setFormInputs] = useState({
     email: "",
     password: "",
@@ -77,46 +76,54 @@ const Login = () => {
   };
 
   return (
-    <div className="login_container">
-      <Link to="/">
-        <img
-          className="login_logo"
-          src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Amazon_logo.svg/1024px-Amazon_logo.svg.png"
-          alt=""
-        />
-      </Link>
-      <div className="login_form">
-        <h1>Sign-in</h1>
-        <form>
-          <h5>E-mail</h5>
-          <input
-            type="text"
-            name="email"
-            value={formInputs.email}
-            onChange={handleInputChange}
-          />
-          <h5>Password</h5>
-          <input
-            type="password"
-            name="password"
-            value={formInputs.password}
-            onChange={handleInputChange}
-          />
-          <button type="submit" onClick={signIn} className="login_singinbutton">
-            Sign in
-          </button>
-        </form>
-        <p>
-          By signing-in you agree to AMAZON FAKE CLONE Conditions of Use & Sale.
-          Please see our Privacy Notice, our Cookies Notice and our
-          Interest-Based Ads Notice.
-        </p>
-        <button onClick={signUp} className="login_registerbutton">
-          Create your amazon account
-        </button>
-        <span ref={errorSpan} className="login__error "></span>
-      </div>
-    </div>
+    <>
+      {!state.user && (
+        <div className="login_container">
+          <Link to="/">
+            <img
+              className="login_logo"
+              src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Amazon_logo.svg/1024px-Amazon_logo.svg.png"
+              alt=""
+            />
+          </Link>
+          <div className="login_form">
+            <h1>Sign-in</h1>
+            <form>
+              <h5>E-mail</h5>
+              <input
+                type="text"
+                name="email"
+                value={formInputs.email}
+                onChange={handleInputChange}
+              />
+              <h5>Password</h5>
+              <input
+                type="password"
+                name="password"
+                value={formInputs.password}
+                onChange={handleInputChange}
+              />
+              <button
+                type="submit"
+                onClick={signIn}
+                className="login_singinbutton"
+              >
+                Sign in
+              </button>
+            </form>
+            <p>
+              By signing-in you agree to AMAZON FAKE CLONE Conditions of Use &
+              Sale. Please see our Privacy Notice, our Cookies Notice and our
+              Interest-Based Ads Notice.
+            </p>
+            <button onClick={signUp} className="login_registerbutton">
+              Create your amazon account
+            </button>
+            <span ref={errorSpan} className="login__error "></span>
+          </div>
+        </div>
+      )}
+    </>
   );
 };
 
