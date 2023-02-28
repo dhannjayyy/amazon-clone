@@ -10,8 +10,7 @@ import { useBasketState } from "../Context provider/basketStateProvider";
 
 const Header = () => {
   const [state, dispatch] = useBasketState();
-  const header_NavbarReference = useRef()
-  
+  const header_NavbarReference = useRef();  
   const loginHandler = () => {
     signOut(auth).catch((error) => {
       console.log("Something went wrong ", error.message);

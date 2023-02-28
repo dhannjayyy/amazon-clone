@@ -71,6 +71,7 @@
   margin-top: 20px;
   padding: 10px;
   width: 90%;
+  flex:1 1 200px;
   margin-bottom: 20px;
   box-shadow: 0 0 2px 2px gray;
   transition: opacity 0.5s, transform 0.5s;
@@ -128,14 +129,12 @@
 
 @media (max-width:768px){
   .checkout{
-    border: 1px solid red;
     flex-direction: column;
     padding-left: 2%
   }
 }
 @media (max-width:320px){
   .checkout{
-    border: 1px solid red;
     flex-direction: column;
     padding-left: 2%
   }

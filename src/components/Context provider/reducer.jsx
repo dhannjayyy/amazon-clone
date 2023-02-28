@@ -1,17 +1,36 @@
-export const initialState = {
+export let initialState = {
   basket: [],
-  wishlisy : [],
+  wishlist: [],
   user: null,
 };
 
-export const getBasketValue = (basket) => basket?.reduce((amount, item) => item.price + amount, 0);
+if (localStorage.amazonBasket) {
+  initialState.basket = JSON.parse(localStorage.getItem("amazonBasket"));
+}
+
+export const getBasketValue = (basket) =>
+  basket?.reduce((amount, item) => item.price + amount, 0);
 
 const reducer = (state, action) => {
   switch (action.type) {
     case "ADD_TO_BASKET":
+      if (localStorage.amazonBasket) {
+        let currentLocalBasket = JSON.parse(
+          localStorage.getItem("amazonBasket")
+        );
+        currentLocalBasket = [...currentLocalBasket, action.item];
+        localStorage.setItem(
+          "amazonBasket",
+          JSON.stringify(currentLocalBasket)
+        );
+        state.basket = currentLocalBasket;
+      } else {
+        localStorage.setItem("amazonBasket", JSON.stringify([action.item]));
+        state.basket = [action.item];
+      }
       return {
         ...state,
-        basket: [...state.basket, action.item],
+        // basket: [...state.basket,action.item],
       };
     case "REMOVE_FROM_BASKET":
       const index = state.basket.findIndex((element) => {
@@ -20,17 +39,18 @@ const reducer = (state, action) => {
 
       if (index >= 0) {
         state.basket.splice(index, 1);
+        localStorage.setItem("amazonBasket", JSON.stringify(state.basket));
       }
       return {
         ...state,
         basket: [...state.basket],
       };
-    
+
     case "EMPTY_BASKET":
       return {
         ...state,
-        basket:[]
-      }
+        basket: [],
+      };
 
     case "SET_USER":
       return {
