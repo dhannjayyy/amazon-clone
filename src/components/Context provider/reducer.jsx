@@ -2,6 +2,7 @@ export let initialState = {
   basket: [],
   wishlist: [],
   user: null,
+  throughCheckout: false,
 };
 
 if (localStorage.amazonBasket) {
@@ -45,8 +46,8 @@ const reducer = (state, action) => {
         ...state,
         basket: [...state.basket],
       };
-      
-      case "EMPTY_BASKET":
+
+    case "EMPTY_BASKET":
       localStorage.setItem("amazonBasket", JSON.stringify([]));
       return {
         ...state,
@@ -57,6 +58,11 @@ const reducer = (state, action) => {
       return {
         ...state,
         user: action.user,
+      };
+    case "THROUGH_CHECKOUT":
+      return {
+        ...state,
+        throughCheckout: true,
       };
     default:
       return state;

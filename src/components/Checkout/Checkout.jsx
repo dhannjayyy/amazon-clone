@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import "./Checkout.scss";
 import Subtotal from "./Subtotal";
 import BasketItem from "./BasketItem";

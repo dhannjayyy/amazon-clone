@@ -39,14 +39,13 @@ const Login = () => {
         const basketRef = doc(db, "users", authObject.user.uid);
         onSnapshot(basketRef, (querySnapshot) => {
           const remoteBasket = querySnapshot.data();
-          console.log(remoteBasket.basket);
           remoteBasket.basket.forEach((basketItem) => {
-            console.log("inside");
-            console.log(basketItem);
             dispatch({ type: "ADD_TO_BASKET", item: basketItem });
           });
         });
-        navigate("/");
+        if (state.throughCheckout === true) {
+          navigate("/payment");
+        } else navigate("/");
       }
     } catch (error) {
       console.log("Some error has occured ", error.message);

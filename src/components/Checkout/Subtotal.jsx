@@ -6,17 +6,24 @@ import { useNavigate } from "react-router-dom";
 import { getBasketValue } from "../Context provider/reducer";
 
 const Subtotal = () => {
-  const [{basket}, dispatch] = useBasketState();
-  const [disable,setDisable] = useState(false)
+  const [state,dispatch] = useBasketState();
+  const [disable, setDisable] = useState(false);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    if(basket.length === 0){
-      setDisable(true)
+  const handleNavigation = () => {
+    if (state.user) {
+      navigate("/payment");
+    } else {
+      dispatch({type:"THROUGH_CHECKOUT"})
+      navigate("/login");
     }
-  }, [basket])
-  
+  };
 
+  useEffect(() => {
+    if (state.basket.length === 0) {
+      setDisable(true);
+    }
+  }, [state.basket]);
 
   return (
     <div className="subtotal">
@@ -24,8 +31,7 @@ const Subtotal = () => {
         renderText={(value) => (
           <>
             <p>
-              Subtotal ({basket?.length} items) :
-              <strong>{value}</strong>
+              Subtotal ({state.basket?.length} items) :<strong>{value}</strong>
             </p>
             <small className="subtotal_gift">
               <input type="checkbox" /> This order contains a gift.
@@ -33,12 +39,12 @@ const Subtotal = () => {
           </>
         )}
         decimalScale={2}
-        value={getBasketValue(basket)}
+        value={getBasketValue(state.basket)}
         displayType={"text"}
         thousandSeparator={true}
         prefix={"INR "}
       />
-      <button disabled = {disable} onClick={(e) => navigate("/payment")}>
+      <button disabled={disable} onClick={handleNavigation}>
         Proceed to Checkout
       </button>
     </div>
