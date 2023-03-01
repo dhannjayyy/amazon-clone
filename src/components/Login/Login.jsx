@@ -7,7 +7,7 @@ import {
   signInWithEmailAndPassword,
 } from "firebase/auth";
 import "./Login.scss";
-import { doc, onSnapshot } from "firebase/firestore";
+import { collection, doc, onSnapshot } from "firebase/firestore";
 import { useBasketState } from "../Context provider/basketStateProvider";
 import { db } from "../../firebase";
 
@@ -36,13 +36,14 @@ const Login = () => {
     );
     try {
       if (authObject) {
-        const basketRef = doc(db, "users", authObject.user.uid);
-        onSnapshot(basketRef, (querySnapshot) => {
-          const remoteBasket = querySnapshot.data();
+        const userProductsRef = collection(db, "users", authObject.user.uid,"userProducts");
+        onSnapshot(userProductsRef, (querySnapshot) => {
+          const remoteBasket = querySnapshot.docs[0].data();
+          const remoteWishlist = querySnapshot.docs[1].data();
           remoteBasket.basket.forEach((basketItem) => {
             dispatch({ type: "ADD_TO_BASKET", item: basketItem });
           });
-          remoteBasket.wishlist.forEach((wishlistItem) => {
+          remoteWishlist.wishlist.forEach((wishlistItem) => {
             dispatch({ type: "ADD_TO_WISHLIST", item: wishlistItem });
           });
         });

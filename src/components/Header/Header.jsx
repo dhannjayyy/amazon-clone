@@ -16,9 +16,10 @@ const Header = () => {
   const header_NavbarReference = useRef();
 
   const logoutHandler = async () => {
-    const docRef = doc(db, "users", state.user?.uid);
+    const docRefBasket = doc(db, "users", state.user?.uid,"userProducts","basket");
+    const docRefWishlist = doc(db, "users", state.user?.uid,"userProducts","wishlist");
     try {
-      await setDoc(docRef, {
+      await setDoc(docRefBasket, {
         basket: state.basket,
       });
       setTimeout(() => navigate("/login"), 500);
@@ -26,7 +27,7 @@ const Header = () => {
       console.log(error.message);
     }
     try {
-      await setDoc(docRef, {
+      await setDoc(docRefWishlist, {
         wishlist: state.wishlist,
       });
       setTimeout(() => navigate("/login"), 500);
