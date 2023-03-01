@@ -19,12 +19,14 @@
     }
   }
 
-  .checkout_emptyCart{
+  .checkout_emptyCart {
     display: grid;
     place-items: center;
-    color:gray;
     font-size: 20px;
-    height: 50vh;
+    height: 70vh;
+    background-color: rgb(245, 245, 245);
+    font-weight: 500;
+    font-size: 20px;
   }
 }
 
@@ -59,7 +61,7 @@
     cursor: pointer;
     transition: opacity 0.2s ease-in-out;
 
-    &:disabled{
+    &:disabled {
       cursor: not-allowed;
       opacity: 0.5;
     }
@@ -71,7 +73,7 @@
   margin-top: 20px;
   padding: 10px;
   width: 90%;
-  flex:1 1 200px;
+  flex: 1 1 200px;
   margin-bottom: 20px;
   box-shadow: 0 0 2px 2px gray;
   transition: opacity 0.5s, transform 0.5s;
@@ -83,21 +85,47 @@
     justify-content: space-evenly;
     align-items: flex-start;
 
-    & > button {
+    & > button, .wishlist_products button:nth-of-type(1) {
       background: #f0c14b;
-      border: 1px solid;
+      border: 2px solid;
       margin-top: 10px;
+      margin-right: 10px;
+      border-color: #a88734 #9c7e31 #846a29;
+      padding: 3px;
+      cursor: pointer;
+      color: #111;
+      transition: all 0.1s;
+      
+      &:hover {
+        transform: scale(1.15);
+        box-shadow: 0 0 0.5px 0.5px gray;
+      }
+      // background-color: none;
+    }
+    
+    & > .wishlistButton {
+      border: 2px solid;
+      border-color: #a88734 #9c7e31 #846a29;
+      background-color: #f5efe1;
+    }
+    
+    & > .wishlist_products button:nth-of-type(2){
+      border: 2px solid;
+      border-color: #a88734 #9c7e31 #846a29;
+      background-color: #f5efe1;
+      margin-top: 10px;
+      margin-right: 10px;
       border-color: #a88734 #9c7e31 #846a29;
       padding: 3px;
       cursor: pointer;
       color: #111;
       transition: all 0.1s;
 
+
       &:hover {
         transform: scale(1.15);
         box-shadow: 0 0 0.5px 0.5px gray;
       }
-      // background-color: none;
     }
 
     .basketItem_rating {
@@ -127,18 +155,18 @@
 }
 // ANIMATIONS END
 
-@media (max-width:768px){
-  .checkout{
+@media (max-width: 768px) {
+  .checkout {
     flex-direction: column;
-    padding-left: 2%
+    padding-left: 2%;
   }
 }
-@media (max-width:320px){
-  .checkout{
+@media (max-width: 320px) {
+  .checkout {
     flex-direction: column;
-    padding-left: 2%
+    padding-left: 2%;
   }
-  .basketItem{
+  .basketItem {
     width: 100%;
 
     .basketItem_image {

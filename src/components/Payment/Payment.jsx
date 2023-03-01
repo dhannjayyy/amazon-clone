@@ -123,7 +123,6 @@ const Payment = () => {
                   title={item.title}
                   price={item.price}
                   rating={item.rating}
-                  hideButton={true}
                 />
               );
             })}

@@ -42,6 +42,9 @@ const Login = () => {
           remoteBasket.basket.forEach((basketItem) => {
             dispatch({ type: "ADD_TO_BASKET", item: basketItem });
           });
+          remoteBasket.wishlist.forEach((wishlistItem) => {
+            dispatch({ type: "ADD_TO_WISHLIST", item: wishlistItem });
+          });
         });
         if (state.throughCheckout === true) {
           navigate("/payment");
@@ -83,12 +86,14 @@ const Login = () => {
               className="login_logo"
               src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Amazon_logo.svg/1024px-Amazon_logo.svg.png"
               alt=""
-              />
+            />
           </Link>
           <div className="login_form">
-              {state.throughCheckout === true && (
-                <div className="login_loginFirstMessage">You need to login for checking out...</div>
-              )}
+            {state.throughCheckout === true && (
+              <div className="login_loginFirstMessage">
+                You need to login for checking out...
+              </div>
+            )}
             <h1>Sign-in</h1>
             <form>
               <h5>E-mail</h5>

@@ -25,7 +25,16 @@ const Header = () => {
     } catch (error) {
       console.log(error.message);
     }
+    try {
+      await setDoc(docRef, {
+        wishlist: state.wishlist,
+      });
+      setTimeout(() => navigate("/login"), 500);
+    } catch (error) {
+      console.log(error.message);
+    }
     dispatch({ type: "EMPTY_BASKET" });
+    dispatch({ type: "EMPTY_WISHLIST" });
     signOut(auth).catch((error) => {
       console.log("Something went wrong ", error.message);
     });
@@ -63,11 +72,11 @@ const Header = () => {
             <span className="header_optionLineTwo">Orders</span>
           </div>
         </Link>
-        <Link to="">
+        <Link to="/wishlist">
           <div className="header_option">
             <span className="header_optionLineOne">Your</span>
             <span className="header_optionLineTwo header_optionPrime">
-              Prime{" "}
+              Wishlist{" "}
             </span>
           </div>
         </Link>

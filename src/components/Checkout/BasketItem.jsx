@@ -4,7 +4,7 @@ import { useHref } from "react-router-dom";
 import { useBasketState } from "../Context provider/basketStateProvider";
 import "./Checkout.scss";
 
-const BasketItem = ({ id, image, title, price, rating, hideButton }) => {
+const BasketItem = ({ id, image, title, price, rating, hideButton, page }) => {
   const [, dispatch] = useBasketState();
   const product = useRef();
 
@@ -33,6 +33,52 @@ const BasketItem = ({ id, image, title, price, rating, hideButton }) => {
       });
     }, 500);
   };
+  const removeWishlistItem = () => {
+    product.current.id = "slideAnimation";
+    slideUpAnimation(product.current.nextElementSibling);
+    setTimeout(() => {
+      dispatch({
+        type: "REMOVE_FROM_WISHLIST",
+        item: {
+          id: id,
+        },
+      });
+    }, 500);
+  };
+
+  const moveToWishlist = () => {
+    product.current.id = "slideAnimation";
+    slideUpAnimation(product.current.nextElementSibling);
+    setTimeout(() => {
+      dispatch({
+        type: "BASKET_TO_WISHLIST",
+        item: {
+          id: id,
+          title: title,
+          price: price,
+          image: image,
+          rating: rating,
+        },
+      });
+    }, 500);
+  };
+
+  const wishlistToBasket = () => {
+    product.current.id = "slideAnimation";
+    slideUpAnimation(product.current.nextElementSibling);
+    setTimeout(() => {
+      dispatch({
+        type: "WISHLIST_TO_BASKET",
+        item: {
+          id: id,
+          title: title,
+          price: price,
+          image: image,
+          rating: rating,
+        },
+      });
+    }, 500);
+  };
 
   return (
     <div ref={product} className="basketItem">
@@ -50,7 +96,21 @@ const BasketItem = ({ id, image, title, price, rating, hideButton }) => {
               return <p key={i}>⭐</p>;
             })}
         </div>
-        {!hideButton && <button onClick={removeBasketItem}>Remove from basket</button>}
+        {!hideButton && (
+          <div className="wishlist_products">
+            <button onClick={removeBasketItem}>Remove from basket</button>
+            <button className="wishlistButton" onClick={moveToWishlist}>
+              Move to wishlist
+            </button>
+          </div>
+        )}
+        {page === "wishlist" && (
+          <div className="wishlist_products">
+            <button onClick={wishlistToBasket}>Move to basket</button>
+
+            <button onClick={removeWishlistItem}>Remove from wishlist</button>
+          </div>
+        )}
       </div>
     </div>
   );

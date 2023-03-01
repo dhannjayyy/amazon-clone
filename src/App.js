@@ -18,6 +18,7 @@ import { auth } from "./firebase";
 import { useBasketState } from "./components/Context provider/basketStateProvider";
 import OrdersPage from "./Pages/OrdersPage";
 import NotFoundPage from "./Pages/NotFoundPage";
+import WishlistPage from "./Pages/WishlistPage";
 
 const App = () => {
   const [{ user, basket }, dispatch] = useBasketState();
@@ -52,6 +53,7 @@ const App = () => {
         {basket.length > 0 && (
           <Route path="payment" element={<PaymentPage />} />
         )}
+        <Route path="/wishlist" element={<WishlistPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </BrowserRouter>

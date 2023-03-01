@@ -7,7 +7,7 @@ import { useBasketState } from "../Context provider/basketStateProvider";
 
 const Checkout = () => {
   const [state] = useBasketState();
- 
+ console.log(state.wishlist)
   return (
     <div className="checkout">
       <div className="checkout_left">

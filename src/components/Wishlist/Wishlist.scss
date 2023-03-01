@@ -1,0 +1,23 @@
+.wishlist__container{
+    padding: 30px;
+    background-color: #fff;
+    .wishlist__emptyMessage{
+        height:70vh;
+        width:100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: rgb(245, 245, 245);
+        font-weight: 500;
+        font-size: 20px;
+    }
+    .wishlist__heading{
+        font-size: 30px;
+        font-weight: 500;
+    }
+    .wishlist__divider{
+        width:90%;
+        margin: 20px 0;
+        border:0.5px solid lightgray;
+    }
+}
