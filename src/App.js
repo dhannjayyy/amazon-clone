@@ -9,8 +9,6 @@ import {
   BrowserRouter,
   Routes,
   Route,
-  useLocation,
-  useNavigate,
 } from "react-router-dom";
 import { onAuthStateChanged } from "firebase/auth";
 import { useEffect } from "react";

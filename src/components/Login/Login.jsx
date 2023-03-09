@@ -1,18 +1,17 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useRef, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { auth } from "../../firebase";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
 } from "firebase/auth";
 import "./Login.scss";
-import { collection, doc, onSnapshot } from "firebase/firestore";
+import { collection, onSnapshot } from "firebase/firestore";
 import { useBasketState } from "../Context provider/basketStateProvider";
 import { db } from "../../firebase";
 
 const Login = () => {
-  const navigate = useNavigate();
   const errorSpan = useRef();
   const [state, dispatch] = useBasketState();
   const [formInputs, setFormInputs] = useState({
@@ -29,14 +28,20 @@ const Login = () => {
 
   const signIn = async (e) => {
     e.preventDefault();
-    const authObject = await signInWithEmailAndPassword(
-      auth,
-      formInputs.email,
-      formInputs.password
-    );
     try {
+      const authObject = await signInWithEmailAndPassword(
+        auth,
+        formInputs.email,
+        formInputs.password
+      );
+
       if (authObject) {
-        const userProductsRef = collection(db, "users", authObject.user.uid,"userProducts");
+        const userProductsRef = collection(
+          db,
+          "users",
+          authObject.user.uid,
+          "userProducts"
+        );
         onSnapshot(userProductsRef, (querySnapshot) => {
           const remoteBasket = querySnapshot.docs[0].data();
           const remoteWishlist = querySnapshot.docs[1].data();
@@ -47,17 +52,25 @@ const Login = () => {
             dispatch({ type: "ADD_TO_WISHLIST", item: wishlistItem });
           });
         });
-        if (state.throughCheckout === true) {
-          navigate("/payment");
-        } else navigate("/");
       }
     } catch (error) {
+      let customErrorHtml;
+      switch (error.message) {
+        case "Firebase: Error (auth/user-not-found).":
+          customErrorHtml = "No user found with that email.";
+          break;
+        case "Firebase: Error (auth/wrong-password).":
+          customErrorHtml = "Wrong Password, Please try again.";
+          break;
+        default:
+          customErrorHtml = "Something went wrong, Please try again after some time."
+          break;
+      }
       console.log("Some error has occured ", error.message);
-      console.log(errorSpan.current.innerHtml);
-      errorSpan.current.innerHTML = error.message;
-      console.log(errorSpan.current.innerHtml);
+      errorSpan.current.innerHTML = customErrorHtml;
     }
   };
+
   const signUp = async (e) => {
     e.preventDefault();
     try {
@@ -66,15 +79,22 @@ const Login = () => {
         formInputs.email,
         formInputs.password
       );
-      if (authObject) {
-        navigate("/");
-      }
+
     } catch (error) {
-      console.log("Some error has occured", error.message);
-      console.log(errorSpan.current.innerHtml);
-      errorSpan.current.innerHTML = error.message;
-      console.log(errorSpan.current.innerHtml);
-      console.log(errorSpan);
+      let customErrorHtml;
+      switch (error.message) {
+        case "Firebase: Error (auth/invalid-email).":
+          customErrorHtml = "Invalid Email Address.";
+          break;
+        case "Firebase: Password should be at least 6 characters (auth/weak-password).":
+          customErrorHtml = "Password should be at least 6 characters long.";
+          break;
+        default:
+          customErrorHtml = "Something went wrong, Please try again after some time."
+          break;
+      }
+      console.log("Some error has occured ", error.message);
+      errorSpan.current.innerHTML = customErrorHtml;
     }
   };
 
