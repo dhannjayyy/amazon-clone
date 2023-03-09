@@ -62,8 +62,15 @@ const Login = () => {
         case "Firebase: Error (auth/wrong-password).":
           customErrorHtml = "Wrong Password, Please try again.";
           break;
+        case "Firebase: Error (auth/invalid-email).":
+          customErrorHtml = "Please enter a valid email";
+          break;
+        case "Firebase: Error (auth/internal-error).":
+          customErrorHtml = "Please enter a password";
+          break;
         default:
-          customErrorHtml = "Something went wrong, Please try again after some time."
+          customErrorHtml =
+            "Something went wrong, Please try again after some time.";
           break;
       }
       console.log("Some error has occured ", error.message);
@@ -74,23 +81,29 @@ const Login = () => {
   const signUp = async (e) => {
     e.preventDefault();
     try {
-      const authObject = await createUserWithEmailAndPassword(
+      await createUserWithEmailAndPassword(
         auth,
         formInputs.email,
         formInputs.password
       );
-
     } catch (error) {
       let customErrorHtml;
       switch (error.message) {
         case "Firebase: Error (auth/invalid-email).":
-          customErrorHtml = "Invalid Email Address.";
+          customErrorHtml = "Please enter a valid email";
           break;
         case "Firebase: Password should be at least 6 characters (auth/weak-password).":
           customErrorHtml = "Password should be at least 6 characters long.";
           break;
+        case "Firebase: Error (auth/internal-error).":
+          customErrorHtml = "Please enter a password";
+          break;
+        case "Firebase: Error (auth/email-already-in-use).":
+          customErrorHtml = "User with that email already exists. Please try to login.";
+          break;
         default:
-          customErrorHtml = "Something went wrong, Please try again after some time."
+          customErrorHtml =
+            "Something went wrong, Please try again after some time.";
           break;
       }
       console.log("Some error has occured ", error.message);
