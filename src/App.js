@@ -5,11 +5,7 @@ import HomePage from "./Pages/HomePage";
 import CheckoutPage from "./Pages/CheckoutPage";
 import PaymentPage from "./Pages/PaymentPage";
 import LoginPage from "./Pages/LoginPage";
-import {
-  BrowserRouter,
-  Routes,
-  Route,
-} from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { onAuthStateChanged } from "firebase/auth";
 import { useEffect } from "react";
 import { auth } from "./firebase";
@@ -19,7 +15,7 @@ import NotFoundPage from "./Pages/NotFoundPage";
 import WishlistPage from "./Pages/WishlistPage";
 
 const App = () => {
-  const [{ user, basket }, dispatch] = useBasketState();
+  const [{ user, basket, throughCheckout }, dispatch] = useBasketState();
 
   useEffect(() => {
     onAuthStateChanged(auth, (authObject) => {
@@ -51,7 +47,7 @@ const App = () => {
         {basket.length > 0 && (
           <Route path="payment" element={<PaymentPage />} />
         )}
-        <Route path="/wishlist" element={<WishlistPage />} />
+        <Route path="wishlist" element={<WishlistPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </BrowserRouter>

@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useRef, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { auth } from "../../firebase";
 import {
   createUserWithEmailAndPassword,
@@ -18,6 +18,7 @@ const Login = () => {
     email: "",
     password: "",
   });
+  const Navigate = useNavigate();
 
   const handleInputChange = (e) => {
     setFormInputs({
@@ -52,6 +53,7 @@ const Login = () => {
             dispatch({ type: "ADD_TO_WISHLIST", item: wishlistItem });
           });
         });
+        if(state.throughCheckout) Navigate("/payment")
       }
     } catch (error) {
       let customErrorHtml;
