@@ -14,9 +14,9 @@ const Payment = () => {
   const [{ basket, user }, dispatch] = useBasketState();
   const history = useNavigate();
   const [error, setError] = useState(null);
-  const [disabled, setDisabled] = useState(true);
-  const [succeeded, setSucceeded] = useState(false);
-  const [processing, setProcessing] = useState("");
+  // const [disabled, setDisabled] = useState(true);
+  // const [succeeded, setSucceeded] = useState(false);
+  // const [processing, setProcessing] = useState(false);
   const [clientSecret, setClientSecret] = useState(true);
   const stripe = useStripe();
   const Elements = useElements();
@@ -49,7 +49,7 @@ const Payment = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setProcessing(true);
+    // setProcessing(true);
 
     await stripe
       .confirmCardPayment(clientSecret, {
@@ -68,13 +68,13 @@ const Payment = () => {
           });
         } catch (error) {
           setError("Something went wrong, please try again");
-          setProcessing(false);
-          setSucceeded(false);
+          // setProcessing(false);
+          // setSucceeded(false);
         }
 
-        setSucceeded(true);
+        // setSucceeded(true);
         setError(null);
-        setProcessing(false);
+        // setProcessing(false);
 
         clearRemoteBsket();
 
@@ -89,7 +89,7 @@ const Payment = () => {
   const handleChange = (e) => {
     //LISTEN FOR CHANGES IN THE CARD-ELEMENT
     //AND DISPLAY ANY ERRORS AS THE CUSTOMER TYPES THEIR CARD DETAILS
-    setDisabled(e.empty);
+    // setDisabled(e.empty);
     setError(e.error ? e.error.message : "");
   };
 
@@ -144,11 +144,8 @@ const Payment = () => {
                   thousandSeparator={true}
                   prefix={"INR"}
                 />
-                <button
-                  className="payment_buybutton"
-                  disabled={processing || disabled || succeeded}
-                >
-                  <span>{processing ? <p>Processing</p> : "Buy Now"}</span>
+                <button className="payment_buybutton">
+                  <span>{"Buy Now"}</span>
                 </button>
                 {/* FOR ERROR */}
                 {error && <div>{error}</div>}
