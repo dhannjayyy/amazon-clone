@@ -1,5 +1,12 @@
-# Getting Started with Create React App
+### Developed an amazon clone on REACT.JS and using Firebase.
+Includes features like signup/login, adding products to cart or wishlist (with local storage).
+Payment integration with Stripe on express and firebase functions.
 
+### Deployment Link
+https://clone-amzon-dh.web.app/
+
+
+# Getting Started with Create React App
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
